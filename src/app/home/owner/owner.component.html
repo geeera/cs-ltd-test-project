@@ -1,0 +1,10 @@
+<header>
+  <h2>{{ title | titlecase }}</h2>
+</header>
+<main>
+  <app-owner-form
+    [owner]="owner"
+    [type]="type"
+    (saved)="onSave($event)"
+  ></app-owner-form>
+</main>

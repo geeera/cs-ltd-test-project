@@ -1,0 +1,48 @@
+<header class="owners-header">
+  <h2>Car Owners</h2>
+  <nav class="owners-actions">
+    <div class="col">
+      <button
+        mat-button
+        class="btn"
+        [routerLink]="['/owner', 'create']"
+      >
+        <mat-icon>add</mat-icon>
+        Добвить
+      </button>
+    </div>
+    <div class="col">
+      <button
+        mat-button color="accent"
+        class="btn"
+        [disabled]="!ownerId"
+        [routerLink]="['/owner', ownerId]"
+        [queryParams]="{ type: 'preview' }"
+      >
+        <mat-icon>remove_red_eye</mat-icon>
+        Просмотр
+      </button>
+      <button
+        mat-button
+        color="accent"
+        class="btn"
+        [disabled]="!ownerId"
+        [routerLink]="['/owner', ownerId]"
+        [queryParams]="{ type: 'edit' }"
+      >
+        <mat-icon>edit</mat-icon>
+        Редактировать
+      </button>
+      <button
+        mat-button
+        color="warn"
+        class="btn"
+        [disabled]="!ownerId"
+        (click)="delete(ownerId)"
+      >
+        <mat-icon>delete_sweep</mat-icon>
+        Удалить
+      </button>
+    </div>
+  </nav>
+</header>

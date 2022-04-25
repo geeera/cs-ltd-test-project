@@ -1,0 +1,23 @@
+form {
+  background-color: #333333;
+  padding: 1rem;
+  border-radius: 10px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+  max-width: 810px;
+
+  color: #ffffff;
+}
+
+th {
+  text-align: left;
+}
+
+footer {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}

@@ -1,0 +1,115 @@
+<form [formGroup]="form" (ngSubmit)="save()">
+  <mat-form-field>
+    <mat-label>Фаммилия</mat-label>
+    <input matInput formControlName="lastName" [readonly]="isReadonly">
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Имя</mat-label>
+    <input matInput formControlName="firstName" [readonly]="isReadonly">
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Отчество</mat-label>
+    <input matInput formControlName="middleName" [readonly]="isReadonly">
+  </mat-form-field>
+
+  <div class="cars">
+    <h2>Автомобили:</h2>
+    <table formArrayName="cars">
+      <tr>
+        <th class="cars-title">Номер</th>
+        <th class="cars-title">Марка</th>
+        <th class="cars-title">Модель</th>
+        <th class="cars-title">Год</th>
+        <th class="cars-title"></th>
+      </tr>
+
+      <tr *ngFor="let carGroup of cars.controls; let idx = index" [formGroupName]="idx">
+        <td>
+          <mat-form-field>
+            <input
+              matInput
+              formControlName="identicalNumber"
+              placeholder="AX1111HP"
+              [readonly]="isReadonly"
+            >
+            <mat-error *ngIf="carGroup.get('identicalNumber')?.errors?.['pattern']">
+              Number must be similar to these schema - AX1111HP
+            </mat-error>
+          </mat-form-field>
+        </td>
+        <td>
+          <mat-form-field>
+            <input matInput formControlName="authorName" [readonly]="isReadonly">
+          </mat-form-field>
+        </td>
+        <td>
+          <mat-form-field>
+            <input matInput formControlName="model" [readonly]="isReadonly">
+          </mat-form-field>
+        </td>
+        <td>
+          <mat-form-field>
+            <input
+              matInput
+              formControlName="yearOfProduction"
+              [matDatepicker]="dp"
+              [readonly]="isReadonly"
+              [min]="startYear"
+              [max]="endYear"
+              [disabled]="true"
+            >
+            <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>
+            <mat-datepicker
+              #dp
+              startView="multi-year"
+              [disabled]="false"
+              (yearSelected)="chosenYearHandler($event, dp, idx)"
+            >
+            </mat-datepicker>
+          </mat-form-field>
+        </td>
+        <td>
+          <button
+            mat-icon-button
+            color="warn"
+            type="button"
+            *ngIf="cars.length - 1 && (!isReadonly || !type)"
+            (click)="deleteCar(idx)"
+          >
+            <mat-icon>delete_sweep</mat-icon>
+          </button>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <button
+            mat-button
+            type="button"
+            *ngIf="(!isReadonly || !type)"
+            (click)="createCar()"
+          >
+            <mat-icon>add</mat-icon>
+            Добавить Автомобиль
+          </button>
+        </td>
+      </tr>
+    </table>
+  </div>
+  <footer>
+    <button mat-button type="button" (click)="back()">
+      <mat-icon>keyboard_arrow_left</mat-icon>
+      Назад
+    </button>
+    <button
+      mat-flat-button
+      type="submit"
+      color="primary"
+      *ngIf="!isReadonly"
+      [disabled]="form.invalid"
+      (submit)="save()"
+    >
+      <mat-icon>save</mat-icon>
+      Сохранить
+    </button>
+  </footer>
+</form>

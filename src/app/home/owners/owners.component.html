@@ -1,0 +1,8 @@
+<app-owners-actions
+  [ownerId]="selectedOwnerId"
+  (deleted)="deleteOwner($event)"
+></app-owners-actions>
+<app-owners-table
+  [owners]="owners"
+  (selected)="selectedOwner($event)"
+></app-owners-table>
